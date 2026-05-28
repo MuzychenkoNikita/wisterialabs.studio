@@ -1,0 +1,565 @@
+/* --- Game UI Design System --- */
+:root {
+    --bg-base: #060409;         /* Void obsidian black */
+    --bg-surface: #0f0b18;      /* Deep RPG-style UI panel background */
+    --bg-surface-elevated: #1a1329; /* Highlighted panel states */
+    
+    --accent-primary: #bd6eff;  /* Radiant Wisteria Sprite Violet */
+    --accent-glow: #8b3eff;     /* Plasma purple energy color */
+    --accent-dark: #371b58;     /* Retrowave shadow violet */
+    
+    --text-main: #f1ecf7;       /* Soft glowing text white */
+    --text-muted: #8e819c;      /* Mystic silver/purple text secondary */
+    --border-color: #371b58;    /* Sharp pixel-style outline color */
+    
+    --font-heading: 'Space Grotesk', sans-serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* --- Foundation & Global Resets --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    line-height: 1.6;
+    /* Subtle retro CRT scanning line simulation overlay */
+    background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                      linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    background-size: 100% 4px, 6px 100%;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* --- Pixel Art Environmental Atmosphere --- */
+/* Ambient cosmic glows behind the layout */
+.ambient-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139,62,255,0.08) 0%, rgba(0,0,0,0) 70%);
+    z-index: -1;
+    pointer-events: none;
+}
+.glow-1 { top: -100px; right: -50px; }
+.glow-2 { top: 800px; left: -200px; }
+
+/* Dynamic Pixel Tree Background Elements placed inside the CSS styling */
+body::before {
+    content: "";
+    position: absolute;
+    top: 140px;
+    right: 5%;
+    width: 128px;
+    height: 128px;
+    background: url('https://api.iconify.design/lucide:trees.svg?color=%23371b58') no-repeat center;
+    background-size: contain;
+    opacity: 0.3;
+    pointer-events: none;
+    image-rendering: pixelated;
+}
+
+body::after {
+    content: "";
+    position: absolute;
+    top: 600px;
+    left: 3%;
+    width: 96px;
+    height: 96px;
+    background: url('https://api.iconify.design/pixelarticons:tree.svg?color=%234c247d') no-repeat center;
+    background-size: contain;
+    opacity: 0.25;
+    pointer-events: none;
+    image-rendering: pixelated;
+}
+
+/* --- Navigation Menu UI --- */
+header {
+    background: rgba(6, 4, 9, 0.9);
+    border-bottom: 4px solid var(--border-color);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 84px;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-main);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    letter-spacing: -0.03em;
+}
+
+.logo i {
+    color: var(--accent-primary);
+    filter: drop-shadow(0 0 8px var(--accent-glow));
+}
+
+.logo span {
+    color: var(--accent-primary);
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    transition: color 0.2s ease;
+}
+
+nav a:hover {
+    color: var(--accent-primary);
+}
+
+/* Retro-styled Game Menu Navigation Button */
+nav .nav-btn {
+    background: transparent;
+    border: 2px solid var(--accent-primary);
+    padding: 0.4rem 1.2rem;
+    color: var(--accent-primary);
+    font-weight: 700;
+    box-shadow: 3px 3px 0px var(--accent-dark);
+    position: relative;
+    transition: all 0.1s ease;
+}
+
+nav .nav-btn:hover {
+    top: 2px;
+    left: 2px;
+    box-shadow: 1px 1px 0px var(--accent-dark);
+    background: rgba(189, 110, 255, 0.1);
+    color: #fff;
+}
+
+/* --- Hero Banner Area --- */
+.hero-section {
+    padding: 14rem 0 8rem 0;
+    text-align: center;
+    background: radial-gradient(circle at center, rgba(26, 19, 41, 0.4) 0%, transparent 70%);
+}
+
+.badge {
+    background: var(--bg-surface);
+    color: var(--accent-primary);
+    padding: 0.5rem 1.25rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: 2px solid var(--border-color);
+    box-shadow: 4px 4px 0px rgba(0,0,0,1);
+    display: inline-block;
+}
+
+.hero-content h1 {
+    font-family: var(--font-heading);
+    font-size: 4rem;
+    margin: 2rem 0;
+    line-height: 1.05;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: #fff;
+    text-shadow: 0 4px 0px var(--accent-dark), 0 8px 0px #000;
+}
+
+.hero-content p {
+    max-width: 680px;
+    margin: 0 auto 3rem auto;
+    font-size: 1.15rem;
+    color: var(--text-muted);
+}
+
+.hero-cta {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+/* Tactical Asset Action Buttons */
+.btn {
+    padding: 1rem 2.25rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    box-shadow: 4px 4px 0px #000;
+    border: 3px solid #000;
+    position: relative;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.btn-primary {
+    background: var(--accent-primary);
+    color: #060409;
+}
+
+.btn-primary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #000;
+    background: #c885ff;
+}
+
+.btn-secondary {
+    background: var(--bg-surface);
+    color: var(--text-main);
+    border-color: var(--border-color);
+}
+
+.btn-secondary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #000;
+    background: var(--bg-surface-elevated);
+}
+
+/* --- Asset Grid Portfolio Area --- */
+.assets-section {
+    padding: 4rem 0 8rem 0;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 5rem;
+    position: relative;
+}
+
+.section-header::after {
+    content: "◆ ◆ ◆";
+    color: var(--border-color);
+    display: block;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.5rem;
+}
+
+.section-header h2 {
+    font-family: var(--font-heading);
+    font-size: 2.8rem;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+}
+
+.section-header p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    margin-top: 0.5rem;
+}
+
+.assets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(440px, 1fr));
+    gap: 3.5rem;
+}
+
+/* Premium RPG Item UI Inventory Frame Box */
+.asset-card {
+    background: var(--bg-surface);
+    border: 3px solid var(--border-color);
+    box-shadow: 8px 8px 0px #000;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.asset-card:hover {
+    border-color: var(--accent-primary);
+}
+
+.preview-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 10px 10px 0px #000;
+}
+
+.preview-img-wrap {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-bottom: 3px solid var(--border-color);
+    background: #000;
+}
+
+.preview-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.asset-short-desc {
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+}
+
+/* --- Media Swiper Carousel Framework --- */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-bottom: 3px solid var(--border-color);
+}
+
+.carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    width: 100%;
+    height: 100%;
+    scrollbar-width: none;  
+}
+.carousel::-webkit-scrollbar { display: none; }
+
+.slide {
+    min-width: 100%;
+    height: 100%;
+    scroll-snap-align: start;
+}
+.slide img { width: 100%; height: 100%; object-fit: cover; }
+.video-slide iframe { width: 100%; height: 100%; border: 0; }
+
+/* Arcade Style UI Swiper Toggle Switches */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #0f0b18;
+    border: 2px solid var(--border-color);
+    color: var(--text-main);
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    z-index: 10;
+}
+
+.carousel-btn:hover {
+    background: var(--accent-primary);
+    border-color: #000;
+    color: #000;
+}
+.carousel-btn.prev { left: 1rem; }
+.carousel-btn.next { right: 1rem; }
+
+/* --- Asset Content Details Display Frame --- */
+.asset-details {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.asset-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px dashed var(--border-color);
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
+}
+
+.asset-meta h1, .asset-meta h3 { 
+    font-family: var(--font-heading); 
+    font-size: 1.8rem; 
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+}
+.price { 
+    font-family: var(--font-heading); 
+    font-size: 1.6rem; 
+    color: var(--accent-primary); 
+    font-weight: 700;
+    text-shadow: 0 2px 0px var(--accent-dark);
+}
+
+/* Simulated Readme Log Terminal Box */
+.readme-content {
+    background: #050308;
+    border: 2px solid var(--border-color);
+    padding: 1.75rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+}
+
+.readme-content h4 {
+    font-family: var(--font-heading);
+    color: var(--accent-primary);
+    margin-bottom: 1.25rem;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Markdown Overrides for Premium RPG Log Panel */
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+    font-family: var(--font-heading);
+    color: #fff;
+    text-transform: uppercase;
+    margin: 1.75rem 0 0.5rem 0;
+    font-size: 1.2rem;
+    letter-spacing: 0.02em;
+}
+.markdown-body p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.25rem; }
+.markdown-body ul { padding-left: 1.25rem; margin-bottom: 1.25rem; color: var(--text-muted); }
+.markdown-body li { margin-bottom: 0.4rem; font-size: 0.92rem; list-style-type: "▪ "; color: var(--text-muted); }
+.markdown-body code {
+    background: var(--bg-surface-elevated);
+    padding: 0.2rem 0.5rem;
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--accent-primary);
+    border: 1px solid var(--border-color);
+}
+.markdown-body pre {
+    background: #000;
+    padding: 1.25rem;
+    overflow-x: auto;
+    margin: 1.25rem 0;
+    border-left: 4px solid var(--accent-primary);
+}
+.markdown-body pre code { background: transparent; padding: 0; color: #a394b8; border: none; }
+
+/* Store Redirection Link Button styling */
+.store-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: transparent;
+    border: 2px solid var(--accent-primary);
+    padding: 1rem 1.5rem;
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    justify-content: center;
+    box-shadow: 4px 4px 0px var(--accent-dark);
+    transition: all 0.1s ease;
+}
+
+.store-link:hover {
+    background: rgba(189, 110, 255, 0.08);
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0px var(--accent-dark);
+    border-color: var(--accent-primary);
+}
+
+.asset-store-cta {
+    background: var(--accent-primary);
+    color: #060409;
+    border: 2px solid #000;
+    box-shadow: 4px 4px 0px #000;
+}
+.asset-store-cta:hover {
+    background: #c885ff;
+    color: #060409;
+    box-shadow: 2px 2px 0px #000;
+}
+
+/* --- Dedicated Details Template Layout Overrides --- */
+.asset-template-page { padding-top: 10rem; padding-bottom: 8rem; }
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-bottom: 2.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s ease;
+}
+.back-link:hover { color: var(--accent-primary); }
+.dynamic-template-card { max-width: 960px; margin: 0 auto; }
+
+/* --- Contact Section UI --- */
+.contact-section { padding: 4rem 0 10rem 0; }
+.contact-card {
+    background: #0f0b18;
+    border: 3px solid var(--border-color);
+    box-shadow: 12px 12px 0px #000;
+    padding: 5rem 2rem;
+    text-align: center;
+    max-width: 840px;
+    margin: 0 auto;
+}
+.contact-card h2 { 
+    font-family: var(--font-heading); 
+    font-size: 3rem; 
+    text-transform: uppercase; 
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+}
+.contact-card p { color: var(--text-muted); max-width: 520px; margin: 0 auto 3rem auto; font-size: 1.1rem; }
+
+.email-link {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    color: var(--accent-primary);
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-shadow: 0 3px 0px var(--accent-dark);
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+.email-link:hover { color: #fff; transform: scale(1.02); }
+
+/* --- Footer Element layout --- */
+footer { border-top: 4px solid var(--border-color); padding: 2.5rem 0; background: #040307; }
+.footer-content { text-align: center; color: #433950; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* --- Responsive Layout Systems Adaptations --- */
+@media(max-width: 768px) {
+    .hero-content h1 { font-size: 2.75rem; }
+    .assets-grid { grid-template-columns: 1fr; }
+    .asset-meta { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+    .asset-details { padding: 1.75rem; }
+    .email-link { font-size: 1.35rem; }
+    nav a:not(.nav-btn) { display: none; }
+    body::before, body::after { display: none; } /* Drops pixel background arrays cleanly for responsive mobile tracking viewports */
+}
