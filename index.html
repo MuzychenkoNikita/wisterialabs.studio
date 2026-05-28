@@ -1,6 +1,107 @@
 <!DOCTYPE html>
-<html>
-  <body>
-    <h1>Wisteria Labs</h1>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wisteria Labs | Premium Unity Assets</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-seedling"></i> Wisteria <span>Labs</span>
+            </a>
+            <nav>
+                <a href="#about">About</a>
+                <a href="#assets">Assets</a>
+                <a href="#contact" class="nav-btn">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section id="about" class="hero-section">
+        <div class="container hero-content">
+            <span class="badge">Unity Asset Studio</span>
+            <h1>Crafting Next-Gen Digital Ecosystems</h1>
+            <p>Welcome to Wisteria Labs. We design premium, highly optimized tools, editor extensions, and stunning visual shaders for Unity developers. Our tools are engineered to elevate development workflows and breathe dynamic life into virtual worlds.</p>
+            <div class="hero-cta">
+                <a href="#assets" class="btn btn-primary">Browse Assets</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="assets" class="assets-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Asset Portfolio</h2>
+                <p>Meticulously engineered production packages available on the Unity Asset Store.</p>
+            </div>
+
+            <div class="assets-grid" id="main-portfolio-grid">
+                <p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Loading asset roster...</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="contact-card">
+                <h2>Let's Build Together</h2>
+                <p>Have inquiries regarding custom technical licensing, pipeline partnerships, or need dedicated package support? Drop us a line.</p>
+                <a href="mailto:contact@wisterialabs.studio" class="email-link">
+                    <i class="fa-regular fa-envelope"></i> contact@wisterialabs.studio
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2026 Wisteria Labs. All rights reserved. Built for Unity Engine Creators.</p>
+        </div>
+    </footer>
+
+    <script src="assets-data.js"></script>
+    <script>
+        // Inject catalog previews into index cards grid architecture dynamically
+        const gridContainer = document.getElementById('main-portfolio-grid');
+        gridContainer.innerHTML = ''; // Clear default fallback loader
+
+        Object.keys(ASSETS_DATA).forEach(key => {
+            const asset = ASSETS_DATA[key];
+            
+            // Extract primary display thumbnail (fallback to first valid asset configuration asset element)
+            const previewMedia = asset.media.find(m => m.type === 'image') || { url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe' };
+            
+            const cardMarkup = `
+                <article class="asset-card preview-card">
+                    <div class="preview-img-wrap">
+                        <img src="${previewMedia.url}" alt="${asset.title} Thumbnail">
+                    </div>
+                    <div class="asset-details">
+                        <div class="asset-meta">
+                            <h3>${asset.title}</h3>
+                            <span class="price">${asset.price}</span>
+                        </div>
+                        <p class="asset-short-desc">${asset.shortDescription}</p>
+                        <a href="asset.html?id=${key}" class="store-link">
+                            Explore Assets & View Documentation <i class="fa-solid fa-arrow-right" style="margin-left: 0.5rem;"></i>
+                        </a>
+                    </div>
+                </article>
+            `;
+            gridContainer.innerHTML += cardMarkup;
+        });
+    </script>
+</body>
 </html>
